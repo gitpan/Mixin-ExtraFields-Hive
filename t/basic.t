@@ -2,7 +2,7 @@
 use strict;
 use warnings;
 
-use Test::More tests => 9;
+use Test::More tests => 10;
 
 require_ok('Mixin::ExtraFields::Hive');
 
@@ -56,4 +56,12 @@ is(
   $object->hive->foo->bar->baz->GET,
   10,
   "but the hive's foo.bar.baz is still 10",
+);
+
+$object->_empty_hive;
+
+is(
+  $object->hive->foo->bar->baz->GET,
+  undef,
+  "after emptying the hive, there's nothing there again",
 );

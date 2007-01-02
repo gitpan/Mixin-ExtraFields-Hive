@@ -11,13 +11,13 @@ Mixin::ExtraFields::Hive - infest your objects with hives
 
 =head1 VERSION
 
-version 0.001
+version 0.002
 
- $Id: Hive.pm 26347 2006-12-09 16:38:03Z rjbs $
+ $Id: Hive.pm 26822 2007-01-02 21:45:45Z rjbs $
 
 =cut
 
-our $VERSION = '0.001';
+our $VERSION = '0.002';
 
 =head1 SYNOPSIS
 
@@ -59,6 +59,7 @@ These methods are:
 
   _mutate_hive - acts as a combined get/set extra accessor
   _exists_hive - acts as the standard exists_extra method
+  _empty_hive  - deletes all hive data
 
 =cut
 
@@ -72,7 +73,7 @@ use Sub::Exporter -setup => {
 
 sub default_moniker { 'hive' }
 
-sub methods { qw(hive mutate exists) }
+sub methods { qw(hive mutate exists empty) }
 
 sub _build_mutate_method {
   my ($self, $arg) = @_;
@@ -125,6 +126,8 @@ sub build_method {
 
   return $self->_build_mutate_method($arg) if $method eq 'mutate';
   return $self->_build_hive_method($arg) if $method eq 'hive';
+
+  $method = 'delete_all' if $method eq 'empty';
 
   $self->SUPER::build_method($method, $arg);
 }
