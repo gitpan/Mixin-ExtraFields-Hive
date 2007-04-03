@@ -5,19 +5,21 @@ use warnings;
 package Mixin::ExtraFields::Hive;
 use base qw(Mixin::ExtraFields);
 
+use 5.006;
+
 =head1 NAME
 
 Mixin::ExtraFields::Hive - infest your objects with hives
 
 =head1 VERSION
 
-version 0.002
+version 0.003
 
- $Id: Hive.pm 26822 2007-01-02 21:45:45Z rjbs $
+ $Id: Hive.pm 28691 2007-04-03 00:14:59Z rjbs $
 
 =cut
 
-our $VERSION = '0.002';
+our $VERSION = '0.003';
 
 =head1 SYNOPSIS
 
@@ -60,6 +62,7 @@ These methods are:
   _mutate_hive - acts as a combined get/set extra accessor
   _exists_hive - acts as the standard exists_extra method
   _empty_hive  - deletes all hive data
+  _delete_hive - deletes a single hive entry
 
 =cut
 
@@ -73,7 +76,7 @@ use Sub::Exporter -setup => {
 
 sub default_moniker { 'hive' }
 
-sub methods { qw(hive mutate exists empty) }
+sub methods { qw(hive mutate exists empty delete) }
 
 sub _build_mutate_method {
   my ($self, $arg) = @_;
@@ -105,6 +108,7 @@ sub _build_hive_method {
 
   my $mutate_method = $self->method_name('mutate', $moniker);
   my $exists_method = $self->method_name('exists', $moniker);
+  my $delete_method = $self->method_name('delete', $moniker);
 
   sub {
     my ($self) = @_;
@@ -116,6 +120,7 @@ sub _build_hive_method {
       store_args  => [ $self, {
         method => $mutate_method,
         exists => $exists_method,
+        delete => $delete_method,
       } ],
     });
   }

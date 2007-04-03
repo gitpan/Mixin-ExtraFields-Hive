@@ -1,5 +1,8 @@
 Changelog for Mixin-ExtraFields-Hive
 
+0.003    2007-04-02
+         add _delete_hive method (HDP)
+
 0.002    2007-01-03
          add _empty_hive method
 

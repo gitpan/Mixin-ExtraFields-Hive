@@ -1,8 +1,8 @@
-
+#!perl
 use strict;
 use warnings;
 
-use Test::More tests => 10;
+use Test::More tests => 12;
 
 require_ok('Mixin::ExtraFields::Hive');
 
@@ -57,6 +57,11 @@ is(
   10,
   "but the hive's foo.bar.baz is still 10",
 );
+
+$object->nest->foo->quux->SET(17);
+is $object->nest->foo->quux->DELETE, 17, "delete has correct old value";
+is_deeply $object->{__nest}, { 'foo.bar.baz' => 20 },
+  "delete deleted from the nest";
 
 $object->_empty_hive;
 
