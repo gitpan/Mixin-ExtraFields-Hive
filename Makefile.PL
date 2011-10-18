@@ -1,16 +1,61 @@
+
 use strict;
 use warnings;
 
-use inc::Module::Install;
+use 5.006;
 
-name      ('Mixin-ExtraFields-Hive');
-author    ('Ricardo SIGNES <rjbs@cpan.org>');
-license   ('perl');
-all_from  ('lib/Mixin/ExtraFields/Hive.pm');
+use ExtUtils::MakeMaker 6.30;
 
-perl_version('5.006');
 
-requires  ('Data::Hive'         => 1.006); # Data::Hive::Test for existing
-requires  ('Mixin::ExtraFields' => 0.002);
 
-WriteAll();
+my %WriteMakefileArgs = (
+  "ABSTRACT" => "infest your objects with hives",
+  "AUTHOR" => "Ricardo Signes <rjbs\@cpan.org>",
+  "BUILD_REQUIRES" => {
+    "Carp" => 0,
+    "Data::Hive::Test" => 0,
+    "Test::More" => "0.96"
+  },
+  "CONFIGURE_REQUIRES" => {
+    "ExtUtils::MakeMaker" => "6.30"
+  },
+  "DISTNAME" => "Mixin-ExtraFields-Hive",
+  "EXE_FILES" => [],
+  "LICENSE" => "perl",
+  "NAME" => "Mixin::ExtraFields::Hive",
+  "PREREQ_PM" => {
+    "Data::Hive" => "1.006",
+    "Data::Hive::Store::Param" => "1.001",
+    "Mixin::ExtraFields" => "0.002",
+    "Sub::Exporter" => 0,
+    "base" => 0,
+    "strict" => 0,
+    "warnings" => 0
+  },
+  "VERSION" => "0.006",
+  "test" => {
+    "TESTS" => "t/*.t"
+  }
+);
+
+
+unless ( eval { ExtUtils::MakeMaker->VERSION(6.56) } ) {
+  my $br = delete $WriteMakefileArgs{BUILD_REQUIRES};
+  my $pp = $WriteMakefileArgs{PREREQ_PM};
+  for my $mod ( keys %$br ) {
+    if ( exists $pp->{$mod} ) {
+      $pp->{$mod} = $br->{$mod} if $br->{$mod} > $pp->{$mod};
+    }
+    else {
+      $pp->{$mod} = $br->{$mod};
+    }
+  }
+}
+
+delete $WriteMakefileArgs{CONFIGURE_REQUIRES}
+  unless eval { ExtUtils::MakeMaker->VERSION(6.52) };
+
+WriteMakefile(%WriteMakefileArgs);
+
+
+

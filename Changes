@@ -1,5 +1,8 @@
 Changelog for Mixin-ExtraFields-Hive
 
+0.006     2011-10-18 14:07:12 America/New_York
+          repackage to provide unbroken META data
+
 0.005     2010-09-01
           run the standard Data::Hive::Test suite
 

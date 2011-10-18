@@ -1,18 +1,12 @@
 Changes
-inc/Module/Install.pm
-inc/Module/Install/Base.pm
-inc/Module/Install/Can.pm
-inc/Module/Install/Fetch.pm
-inc/Module/Install/Makefile.pm
-inc/Module/Install/Metadata.pm
-inc/Module/Install/Win32.pm
-inc/Module/Install/WriteAll.pm
-lib/Mixin/ExtraFields/Hive.pm
 LICENSE
+MANIFEST
+META.json
+META.yml
 Makefile.PL
-MANIFEST			This list of files
 README
+dist.ini
+lib/Mixin/ExtraFields/Hive.pm
 t/basic.t
 t/lib/Object/HasHive.pm
-t/pod-coverage.t
-t/pod.t
+t/release-pod-syntax.t
