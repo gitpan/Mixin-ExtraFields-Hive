@@ -2,15 +2,15 @@ use strict;
 use warnings;
 
 package Mixin::ExtraFields::Hive;
-use base qw(Mixin::ExtraFields);
+{
+  $Mixin::ExtraFields::Hive::VERSION = '0.007';
+}
+use Mixin::ExtraFields 0.002 ();
+use parent qw(Mixin::ExtraFields);
 # ABSTRACT: infest your objects with hives
 
-use 5.006;
 
-our $VERSION = '0.005';
-
-
-use Data::Hive 1.001;
+use Data::Hive 1.006;
 use Data::Hive::Store::Param 1.001;
 
 # I wish this was easier. -- rjbs, 2006-12-09
@@ -108,6 +108,7 @@ sub method_name {
 1;
 
 __END__
+
 =pod
 
 =head1 NAME
@@ -116,7 +117,7 @@ Mixin::ExtraFields::Hive - infest your objects with hives
 
 =head1 VERSION
 
-version 0.006
+version 0.007
 
 =head1 SYNOPSIS
 
@@ -183,4 +184,3 @@ This is free software; you can redistribute it and/or modify it under
 the same terms as the Perl 5 programming language system itself.
 
 =cut
-
